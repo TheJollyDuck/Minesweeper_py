@@ -1,0 +1,3 @@
+# PyCharm related Local Directories
+__pycache__/
+.idea/
