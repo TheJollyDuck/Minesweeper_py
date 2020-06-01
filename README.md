@@ -12,7 +12,7 @@ The game can either be played using the console version or the Tkinter version, 
 
 The game has only been tested on Python 3.8 but probably work fine with other 3.x versions.
 
-##Future Plans
+## Future Plans
 
 The project is still in its early stage and I hope to implement various features once the base idea is implemented.
 
