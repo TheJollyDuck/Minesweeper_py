@@ -3,7 +3,7 @@
  The Jolly Duck
 
  Created: 24/05/20
- Last Modified: 01/06/20
+ Last Modified: 02/06/20
 
  Minesweeper Console Functions
  This py file contains the necessary functions of the game in console mode
