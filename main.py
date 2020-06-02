@@ -17,6 +17,9 @@ print("============================")
 print("Minesweeper is starting.....")
 print("============================\n")
 
-cf.gameInitialize()
+gameMode = cf.gameInitialize()
+if gameMode == 1:
+    mineBoard, hiddenBoard = cf.boardInitialize()
+    cf.printBoard(mineBoard)
 
 End = input("Press [Enter] to exit out of program")
