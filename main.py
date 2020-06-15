@@ -19,7 +19,10 @@ print("============================\n")
 
 gameMode = cf.gameInitialize()
 if gameMode == 1:
+
     mineBoard, hiddenBoard = cf.boardInitialize()
-    cf.printBoard(mineBoard)
+    cf.printBoard(mineBoard) # for the board the player will look at
+    print()
+    cf.printBoard(hiddenBoard) # the hidden board that contains the location of the mines
 
 End = input("Press [Enter] to exit out of program")
