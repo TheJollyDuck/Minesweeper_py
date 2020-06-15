@@ -59,37 +59,29 @@ def printBoard(mapList):
 
 def difficulty():
     difChosen = False
+    difNames = ["easy","medium","hard"]
+    rowsList = [9, 16, 16]
+    columnsList = [9, 16, 30]
+    minesList = [10, 40, 99]
 
     while not difChosen:
         dif = input("What difficulty you want to play on?\n [easy][medium][hard][custom]")
         dif.lower()
-        if dif == "easy":
 
-            rows = 9
-            columns = 9
-            mines = 10
-            difChosen = True
-
-        elif dif == "medium":
-
-            rows = 16
-            columns = 16
-            mines = 40
-            difChosen = True
-
-        elif dif == "hard":
-            rows = 16
-            columns = 30
-            mines = 40
-            difChosen = True
-
-        elif dif == "custom":
+        if dif == "custom":
             rows = input("Please type the number of rows you want: ")
             rows = checkIfInt(rows)
             columns = input("Please type the number of columns you want: ")
             columns = checkIfInt(columns)
             mines = input("Please type the number of mines you want: ")
             mines = checkIfInt(mines)
+            difChosen = True
+
+        else:
+            difIndex = difNames.index(dif)
+            rows = rowsList[difIndex]
+            columns = columnsList[difIndex]
+            mines = minesList[difIndex]
             difChosen = True
 
     return rows, columns, mines
@@ -99,7 +91,7 @@ def placeMines(mapList, quant):
     rowSize = len(mapList)
     columnSize = len(mapList[1])
 
-    for i in range(0,quant):
+    for i in range(0, quant):
 
         rowCoord = r.randint(0,rowSize -1)
         columnCoord = r.randint(0,columnSize -1)
