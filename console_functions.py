@@ -65,7 +65,7 @@ def difficulty():
     minesList = [10, 40, 99]
 
     while not difChosen:
-        dif = input("What difficulty you want to play on?\n [easy][medium][hard][custom]")
+        dif = input("What difficulty you want to play on?\n [easy][medium][hard][custom]: ")
         dif.lower()
 
         if dif == "custom":
@@ -91,15 +91,15 @@ def placeMines(mapList, quant):
     rowSize = len(mapList)
     columnSize = len(mapList[1])
 
-    for i in range(0, quant):
-
+    while quant > 0:
         rowCoord = r.randint(0,rowSize -1)
         columnCoord = r.randint(0,columnSize -1)
 
         if mapList[rowCoord][columnCoord] == bomb:
-            i -= 1
+            continue
         else:
             mapList[rowCoord][columnCoord] = bomb
+            quant -= 1
 
     return mapList
 
