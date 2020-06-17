@@ -3,7 +3,7 @@
  The Jolly Duck
 
  Created: 24/05/20
- Last Modified: 15/06/2020
+ Last Modified: 17/06/2020
 
  Minesweeper Console Functions
  This py file contains the necessary functions of the game in console mode
@@ -118,7 +118,7 @@ def difficulty():
     return rows, columns, mines
 
 def placeMines(mapList, quant):
-    bomb = "💣"
+    bomb = "\U0001F4A3"
     rowSize = len(mapList)
     columnSize = len(mapList[1])
 
@@ -133,6 +133,9 @@ def placeMines(mapList, quant):
             quant -= 1
 
     return mapList
+
+def placeNumbers(mapList):
+    ...
 
 def checkIfInt(var):
     while not var.isdigit():
