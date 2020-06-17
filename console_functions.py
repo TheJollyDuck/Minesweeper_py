@@ -58,31 +58,47 @@ def printBoard(mapList):
                 print("")
 
 def difficulty():
+    def easy():
+        rs = 9
+        cs = 9
+        ms = 10
+        return rs, cs, ms
+
+    def medium():
+        rs = 16
+        cs = 16
+        ms = 40
+        return rs, cs, ms
+
+    def hard():
+        rs = 16
+        cs = 30
+        ms = 99
+        return rs, cs, ms
+
+    def custom():
+        rs = customLevel("rows")
+        cs = customLevel("columns")
+        ms = customLevel("mines")
+        return rs, cs, ms
+
+    difDict = {
+        "easy" : easy,
+        "medium" : medium,
+        "hard" : hard,
+        "custom" : custom
+    }
+
     difChosen = False
-    difNames = ["easy","medium","hard"]
-    rowsList = [9, 16, 16]
-    columnsList = [9, 16, 30]
-    minesList = [10, 40, 99]
 
     while not difChosen:
         dif = input("What difficulty you want to play on?\n [easy][medium][hard][custom]: ")
         dif.lower()
-
-        if dif == "custom":
-            rows = input("Please type the number of rows you want: ")
-            rows = checkIfInt(rows)
-            columns = input("Please type the number of columns you want: ")
-            columns = checkIfInt(columns)
-            mines = input("Please type the number of mines you want: ")
-            mines = checkIfInt(mines)
+        if dif in difDict:
+            rows, columns, mines = difDict.get(dif)()
             difChosen = True
-
         else:
-            difIndex = difNames.index(dif)
-            rows = rowsList[difIndex]
-            columns = columnsList[difIndex]
-            mines = minesList[difIndex]
-            difChosen = True
+            print("\n===[Invalid Response]===")
 
     return rows, columns, mines
 
@@ -108,3 +124,7 @@ def checkIfInt(var):
         var = input("That is not a valid response. Try again: ")
     var = int(var)
     return var
+
+def customLevel(word):
+    number = checkIfInt(input("Please type the number of {} you want: ".format(word)))
+    return number
