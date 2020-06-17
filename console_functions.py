@@ -43,8 +43,8 @@ def boardInitialize():
         hiddenBoard.append([])
 
         for j in range(0,columns):
-            mineBoard[i].append("•")
-            hiddenBoard[i].append("•")
+            mineBoard[i].append("☐")
+            hiddenBoard[i].append(" ")
 
     hiddenBoard = placeMines(hiddenBoard, mines)
     return (mineBoard, hiddenBoard)
@@ -146,3 +146,61 @@ def checkIfInt(var):
 def customLevel(word):
     number = checkIfInt(input("Please type the number of {} you want: ".format(word)))
     return number
+
+def chooseMove(mapList1, mapList2, gameState):
+    def flag(coord, mList1, mList2, gState):
+        coord = list(coord)
+        xCoord = st.ascii_uppercase.index(coord[0])
+        mList1[int(coord[1])][xCoord] = "⚐"
+
+        return mList1, gState
+
+    def reveal(coord, mList1, mList2, gState):
+        coord = list(coord)
+        xCoord = st.ascii_uppercase.index(coord[0])
+        hiddenCoord = mList2[int(coord[1])][xCoord]
+        mainCoord = mList1[int(coord[1])][xCoord]
+
+        if hiddenCoord == "\U0001F4A3":
+            gState = "complete"
+            print("You triggered a mine\nYou lost!")
+        else:
+            mainCoord = hiddenCoord
+
+        return mList1, gState
+
+    def mark(coord, mList1, mList2, gState):
+        coord = list(coord)
+        xCoord = st.ascii_uppercase.index(coord[0])
+        mList1[int(coord[1])][xCoord] = "?"
+
+        return mList1, gState
+
+    def resign(coord, mList1, mList2, gState):
+        print("GAME OVER. You have resigned")
+        gState = "complete"
+        return mList1, gState
+
+    moveDict = {
+        "flag" : flag,
+        "reveal" : reveal,
+        "mark" : mark,
+        "resign" : resign
+    }
+
+    print("What move do you want to make?")
+    move = (input("[flag][reveal][mark][resign] | <move> <coordinate> : ")).split()
+    mov = "not given"
+
+    while mov == "not given":
+        if move[0] in moveDict:
+            move.append("")
+            mapList1, gameState = moveDict[move[0]](move[1], mapList1, mapList2, gameState)
+            mov = "given"
+
+        else:
+            print("===[invalid input]===")
+            move = (input("[flag][reveal][mark][resign] | <move> <coordinate> : ")).split()
+
+    return mapList1, gameState
+

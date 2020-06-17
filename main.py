@@ -21,8 +21,12 @@ gameMode = cf.gameInitialize()
 if gameMode == 1:
 
     mineBoard, hiddenBoard = cf.boardInitialize()
-    cf.printBoard(mineBoard) # for the board the player will look at
-    print()
-    cf.printBoard(hiddenBoard) # the hidden board that contains the location of the mines
+    gameState = "incomplete"
+    while gameState == "incomplete":
+        cf.printBoard(mineBoard) # for the board the player will look at
+        print("")
+        cf.printBoard(hiddenBoard) # the hidden board that contains the location of the mines
+        print("")
+        mineBoard, gameState = cf.chooseMove(mineBoard, hiddenBoard, gameState)
 
 End = input("Press [Enter] to exit out of program")
