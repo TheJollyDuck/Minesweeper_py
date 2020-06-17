@@ -12,6 +12,7 @@
 
 # import tkinter_functions as tk
 import random as r
+import string as st
 
 def gameInitialize():
     print("=====| Welcome to Minesweeper! |=====\n\nPlease type what version you would like to play:")
@@ -50,12 +51,26 @@ def boardInitialize():
 
 def printBoard(mapList):
     yLength = len(mapList)
+    xLength = len(mapList[1])
+    CAPITAL_LIST = st.ascii_uppercase
+    LOWERCASE_LIST = st.ascii_lowercase
+    ALPHABET_SIZE = 26
+
+    print(" \t", end = "")
+    for i in range(xLength):
+        if i < 26:
+            print(CAPITAL_LIST[i], "\t", end = "")
+        else:
+            print(LOWERCASE_LIST[i - ALPHABET_SIZE], "\t", end = "")
+    print("")
 
     for i in range(yLength):
-        for j in range(yLength):
-            print(mapList[i][j], end ="  ")
-            if j == (yLength-1):
-                print("")
+        line = ""
+        print(i, end = "\t")
+        for j in range(xLength):
+            line += mapList[i][j] + "{}".format("\t")
+            if j == (xLength-1):
+                print(line)
 
 def difficulty():
     def easy():
