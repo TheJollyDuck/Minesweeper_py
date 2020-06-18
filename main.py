@@ -13,20 +13,30 @@
 import console_functions as cf
 import tkinter_functions as tkf
 
-print("============================")
+print("\n============================")
 print("Minesweeper is starting.....")
 print("============================\n")
 
 gameMode = cf.gameInitialize()
-if gameMode == 1:
+playAgain = True
 
-    mineBoard, hiddenBoard = cf.boardInitialize()
-    gameState = "incomplete"
-    while gameState == "incomplete":
-        cf.printBoard(mineBoard) # for the board the player will look at
-        print("")
-        cf.printBoard(hiddenBoard) # the hidden board that contains the location of the mines
-        print("")
-        mineBoard, gameState = cf.chooseMove(mineBoard, hiddenBoard, gameState)
+while playAgain:
+    if gameMode == 1:
+
+        mineBoard, hiddenBoard = cf.boardInitialize()
+        gameState = "incomplete"
+        while gameState == "incomplete":
+            cf.printBoard(mineBoard) # for the board the player will look at
+            print("")
+            cf.printBoard(hiddenBoard) # the hidden board that contains the location of the mines
+            print("")
+            mineBoard, gameState = cf.chooseMove(mineBoard, hiddenBoard, gameState)
+        againQuestion = input("Do you want to play again?\n[yes][no]: ")
+
+        if againQuestion == "yes":
+            continue
+        else:
+            print("Thanks for playing!")
+            playAgain = False
 
 End = input("Press [Enter] to exit out of program")

@@ -3,14 +3,13 @@
  The Jolly Duck
 
  Created: 24/05/20
- Last Modified: 17/06/2020
+ Last Modified: 18/06/2020
 
  Minesweeper Console Functions
  This py file contains the necessary functions of the game in console mode
  You may look and/or modify the code as you wish without harming it
  """
 
-# import tkinter_functions as tk
 import random as r
 import string as st
 
@@ -44,9 +43,11 @@ def boardInitialize():
 
         for j in range(0,columns):
             mineBoard[i].append("☐")
-            hiddenBoard[i].append(" ")
+            hiddenBoard[i].append(0)
 
     hiddenBoard = placeMines(hiddenBoard, mines)
+    hiddenBoard = placeNumbers(hiddenBoard)
+
     return (mineBoard, hiddenBoard)
 
 def printBoard(mapList):
@@ -59,16 +60,16 @@ def printBoard(mapList):
     print(" \t", end = "")
     for i in range(xLength):
         if i < 26:
-            print(CAPITAL_LIST[i], "\t", end = "")
+            print(LOWERCASE_LIST[i], "\t", end = "")
         else:
-            print(LOWERCASE_LIST[i - ALPHABET_SIZE], "\t", end = "")
+            print(CAPITAL_LIST[i - ALPHABET_SIZE], "\t", end = "")
     print("")
 
     for i in range(yLength):
         line = ""
         print(i, end = "\t")
         for j in range(xLength):
-            line += mapList[i][j] + "{}".format("\t")
+            line += str(mapList[i][j]) + "{}".format("\t")
             if j == (xLength-1):
                 print(line)
 
@@ -135,7 +136,14 @@ def placeMines(mapList, quant):
     return mapList
 
 def placeNumbers(mapList):
-    ...
+    row = len(mapList)
+    column = len(mapList[1])
+
+    for i in range(row):
+        for j in range(column):
+            if mapList[i][j] == "\U0001F4A3":
+                ...
+    return mapList
 
 def checkIfInt(var):
     while not var.isdigit():
@@ -148,35 +156,33 @@ def customLevel(word):
     return number
 
 def chooseMove(mapList1, mapList2, gameState):
-    def flag(coord, mList1, mList2, gState):
+    def flag(coord, mList1, NULL, gState):
         coord = list(coord)
-        xCoord = st.ascii_uppercase.index(coord[0])
+        xCoord = st.ascii_letters.index(coord[0])
         mList1[int(coord[1])][xCoord] = "⚐"
 
         return mList1, gState
 
     def reveal(coord, mList1, mList2, gState):
         coord = list(coord)
-        xCoord = st.ascii_uppercase.index(coord[0])
-        hiddenCoord = mList2[int(coord[1])][xCoord]
-        mainCoord = mList1[int(coord[1])][xCoord]
+        xCoord = st.ascii_letters.index(coord[0])
 
-        if hiddenCoord == "\U0001F4A3":
+        if mList2[int(coord[1])][xCoord] == "\U0001F4A3":
             gState = "complete"
             print("You triggered a mine\nYou lost!")
         else:
-            mainCoord = hiddenCoord
+            mList1[int(coord[1])][xCoord] = mList2[int(coord[1])][xCoord]
 
         return mList1, gState
 
-    def mark(coord, mList1, mList2, gState):
+    def mark(coord, mList1, NULL, gState):
         coord = list(coord)
-        xCoord = st.ascii_uppercase.index(coord[0])
+        xCoord = st.ascii_letters.index(coord[0])
         mList1[int(coord[1])][xCoord] = "?"
 
         return mList1, gState
 
-    def resign(coord, mList1, mList2, gState):
+    def resign(NULL, mList1, NULL_2, gState):
         print("GAME OVER. You have resigned")
         gState = "complete"
         return mList1, gState
@@ -203,4 +209,3 @@ def chooseMove(mapList1, mapList2, gameState):
             move = (input("[flag][reveal][mark][resign] | <move> <coordinate> : ")).split()
 
     return mapList1, gameState
-
